@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class Bounderies : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject bottomBoundery;
+    [SerializeField] GameObject leftBoundery;
+    [SerializeField] GameObject rightBoundery;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //may want an awake function to change the level's layout according to the resolution or something.
 }

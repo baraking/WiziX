@@ -638,6 +638,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e807636c599650f4aa98929f003d498d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bottomBoundery: {fileID: 1242925050}
+  leftBoundery: {fileID: 1440993954}
+  rightBoundery: {fileID: 764815172}
 --- !u!4 &1558689903
 Transform:
   m_ObjectHideFlags: 0
