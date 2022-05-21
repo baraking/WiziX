@@ -39,7 +39,12 @@ public class Ball : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            Debug.Log("Player Hit!");
+            //Debug.Log("Player Hit!");
+        }
+
+        if(other.tag == "Attack")
+        {
+            BallsManager.instance.ReduceBallSize(this);
         }
     }
 }

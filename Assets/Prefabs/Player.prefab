@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5327879361095520687}
   - component: {fileID: 6643457893033821424}
   - component: {fileID: 6285902644648130738}
+  - component: {fileID: 2915271997316408983}
   m_Layer: 0
   m_Name: GFX
   m_TagString: Player
@@ -122,6 +123,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe833907967e5454ca35d30d753c9682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 0}
+--- !u!114 &2915271997316408983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6777219624479529548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bccfb8244aabca40a426ceb80d8c015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8468118305500272172

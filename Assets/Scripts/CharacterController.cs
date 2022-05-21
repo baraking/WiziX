@@ -5,12 +5,14 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     InputManager inputManager;
+    AttacksManager attacksManager;
 
     float movementSpeed = 6;
 
     void Start()
     {
         inputManager = GetComponent<InputManager>();
+        attacksManager = GetComponent<AttacksManager>();
     }
 
     void Update()
