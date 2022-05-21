@@ -36,5 +36,10 @@ public class Ball : MonoBehaviour
         {
             xDir = -xDir;
         }
+
+        if (other.tag == "Player")
+        {
+            Debug.Log("Player Hit!");
+        }
     }
 }
