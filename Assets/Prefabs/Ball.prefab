@@ -107,5 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 4
-  rounte: 4
+  route: 4
   xDir: 0
+  needToAlterRoute: 0

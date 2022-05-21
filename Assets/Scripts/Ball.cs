@@ -5,8 +5,10 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public int size;
-    public int rounte;
+    public int route;
     public int xDir;
+
+    public bool needToAlterRoute;
 
     private void Awake()
     {
