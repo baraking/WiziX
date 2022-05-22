@@ -12,6 +12,7 @@ public class Ball : MonoBehaviour
     public int yDir;
 
     public float lastDistance;
+    public float creationTime;
 
     public bool needToAlterRoute;
 
@@ -38,6 +39,8 @@ public class Ball : MonoBehaviour
         }
 
         transform.localScale = new Vector3((float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE);
+
+        creationTime = Time.time;
     }
 
     private void OnTriggerEnter(Collider other)
