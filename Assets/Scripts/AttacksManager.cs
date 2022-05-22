@@ -6,6 +6,9 @@ public class AttacksManager : MonoBehaviour
 {
     public static readonly int DEFAULT_ATTACK_HEIGHT_LIMIT = 7;
 
+    CharacterController characterController;
+    InputManager inputManager;
+
     public List<Attack> activeAttacks;
     public List<Attack> disabledAttacks;
 
@@ -14,12 +17,14 @@ public class AttacksManager : MonoBehaviour
 
     private void Start()
     {
+        characterController = GetComponent<CharacterController>();
+        inputManager = GetComponent<InputManager>();
         activeAttacks = new List<Attack>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (inputManager.GetAttackButtonStatus() && activeAttacks.Count<characterController.GetNumberOfAllowedAttacks())
         {
             FireAttack();
         }

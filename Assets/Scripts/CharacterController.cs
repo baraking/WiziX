@@ -8,6 +8,7 @@ public class CharacterController : MonoBehaviour
     AttacksManager attacksManager;
 
     float movementSpeed = 6;
+    int allowedAttacks = 1;
 
     void Start()
     {
@@ -18,5 +19,10 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.right * inputManager.GetHorizontalMovement() * movementSpeed * Time.deltaTime);
+    }
+
+    public int GetNumberOfAllowedAttacks()
+    {
+        return allowedAttacks;
     }
 }

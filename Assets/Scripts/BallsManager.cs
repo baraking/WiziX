@@ -64,6 +64,7 @@ public class BallsManager : GenericSingleton<BallsManager>
 
     private void AddBall(Ball originalBall, int xDir)
     {
+        //need to change the transform position to a little bit to the left and the right. if is out of the screen to put just before the border
         GameObject newBall = Instantiate(ballPrefab, originalBall.transform.position, Quaternion.identity, transform);
         newBall.transform.localScale = new Vector3((float)originalBall.size / Ball.DEFAULT_BALL_SIZE, (float)originalBall.size / Ball.DEFAULT_BALL_SIZE, (float)originalBall.size / Ball.DEFAULT_BALL_SIZE);
 
