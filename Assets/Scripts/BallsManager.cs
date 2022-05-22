@@ -38,12 +38,12 @@ public class BallsManager : GenericSingleton<BallsManager>
         }
     }
 
-    //using a Sin function instead of physics bouncing, just like the original game. also, would be much more easing on the device.
+    //using a Cos function instead of physics bouncing, just like the original game. also, would be much more easing on the device.
     private void UpdateBallMovement(Ball ball)
     {
         Vector3 pos = ball.transform.position;
         float newY = Mathf.Abs(Mathf.Cos(Time.time * (Ball.DEFAULT_BALL_SIZE-1 + (float)1 / ball.route)));
-        ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - (Ball.DEFAULT_BALL_SIZE - 1) - (float)ball.route / Ball.DEFAULT_BALL_SIZE - 0.1f, pos.z);
+        ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
 
         if (ball.needToAlterRoute)
         {
