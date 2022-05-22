@@ -28,6 +28,8 @@ public class CharacterController : MonoBehaviour
 
     public void Die()
     {
+        LevelManager.instance.numberOfActivePlayers--;
+        attacksManager.DisableAllAttacks();
         Destroy(transform.parent.gameObject);
     }
 }

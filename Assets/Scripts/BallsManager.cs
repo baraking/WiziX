@@ -48,6 +48,7 @@ public class BallsManager : GenericSingleton<BallsManager>
 
     public void ReduceBallSize(Ball ball)
     {
+        int newBallSize = ball.size-1;
         ball.size--;
         if (ball.size > 0)
         {
@@ -57,10 +58,9 @@ public class BallsManager : GenericSingleton<BallsManager>
         allBalls.Remove(ball);
         Destroy(ball.gameObject);
 
-        if (allBalls.Count == 0)
+        if (newBallSize < 1)
         {
-            LevelManager.instance.onLevelWin?.Invoke();
-            LevelManager.instance.onLevelWin.RemoveAllListeners();
+            LevelManager.instance.CheckForWin();
         }
     }
 

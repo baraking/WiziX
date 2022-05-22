@@ -8,12 +8,14 @@ public class MainMenu : MonoBehaviour
 {
     public void OnePlayerOption()
     {
+        LevelManager.instance.sessionData.numberOfPlayers = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void TwoPlayeresOption()
     {
-        Debug.Log("2 playeres option");
+        LevelManager.instance.sessionData.numberOfPlayers = 2;
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void ExitGameOption()

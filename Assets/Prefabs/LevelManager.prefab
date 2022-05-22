@@ -49,3 +49,6 @@ MonoBehaviour:
   onLevelLose:
     m_PersistentCalls:
       m_Calls: []
+  sessionData: {fileID: 11400000, guid: 3fa0fa1f43e1e8b4fa394ce826bf112d, type: 2}
+  numberOfPlayers: 0
+  numberOfActivePlayers: 0
