@@ -28,6 +28,8 @@ public class Ball : MonoBehaviour
         {
             xDir = 1;
         }
+
+        transform.localScale = new Vector3((float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE);
     }
 
     private void OnTriggerEnter(Collider other)
