@@ -9,6 +9,9 @@ public class Ball : MonoBehaviour
     public int size;
     public int route;
     public int xDir;
+    public int yDir;
+
+    public float lastDistance;
 
     public bool needToAlterRoute;
 
@@ -29,6 +32,11 @@ public class Ball : MonoBehaviour
             xDir = 1;
         }
 
+        if (yDir == 0)
+        {
+            yDir = 1;
+        }
+
         transform.localScale = new Vector3((float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE);
     }
 
@@ -37,6 +45,15 @@ public class Ball : MonoBehaviour
         if (other.tag == "Wall")
         {
             xDir = -xDir;
+        }
+
+        if (other.tag == "Ground")
+        {
+            Debug.Log("Ground!");
+            if (needToAlterRoute)
+            {
+                BallsManager.instance.AlterBallMovement(this);
+            }
         }
 
         if (other.tag == "Player")

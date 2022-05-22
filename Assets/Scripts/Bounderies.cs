@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bounderies : MonoBehaviour
+public class Bounderies : GenericSingleton<Bounderies>
 {
-    [SerializeField] GameObject bottomBoundery;
+    public GameObject bottomBoundery;
     [SerializeField] GameObject leftBoundery;
     [SerializeField] GameObject rightBoundery;
 
