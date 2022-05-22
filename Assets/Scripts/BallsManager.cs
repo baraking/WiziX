@@ -30,6 +30,11 @@ public class BallsManager : GenericSingleton<BallsManager>
         {
             UpdateBallMovement(ball);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ReduceBallSize(allBalls[0]);
+        }
     }
 
     //using a Sin function instead of physics bouncing, just like the original game. also, would be much more easing on the device.
