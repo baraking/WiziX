@@ -61,6 +61,7 @@ public class BallsManager : GenericSingleton<BallsManager>
         }
     }
 
+    //should be replaced (probably) with raycasting in a future version.
     private float CalculateDistanceFromBallToBottom(Ball ball)
     {
         Collider ballCollider = ball.GetComponent<Collider>();
