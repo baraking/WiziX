@@ -25,4 +25,9 @@ public class CharacterController : MonoBehaviour
     {
         return allowedAttacks;
     }
+
+    public void Die()
+    {
+        Destroy(transform.parent.gameObject);
+    }
 }

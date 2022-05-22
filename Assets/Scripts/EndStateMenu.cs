@@ -13,17 +13,22 @@ public class EndStateMenu : MonoBehaviour
 
     private void Start()
     {
-        
+        fadeImage.enabled = false;
+
+        LevelManager.instance.onLevelWin.AddListener(OnWin);
+        LevelManager.instance.onLevelLose.AddListener(OnLose);
     }
 
     void OnWin()
     {
+        fadeImage.enabled = true;
         StartCoroutine(Fade(Color.clear, Color.black, 1));
         winUI.SetActive(true);
     }
 
     void OnLose()
     {
+        fadeImage.enabled = true;
         StartCoroutine(Fade(Color.clear, Color.black, 1));
         loseUI.SetActive(true);
     }

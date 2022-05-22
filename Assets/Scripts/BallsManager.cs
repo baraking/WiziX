@@ -8,9 +8,6 @@ public class BallsManager : GenericSingleton<BallsManager>
     public List<Ball> allBalls;
     [SerializeField] GameObject ballPrefab;
 
-    public UnityEvent onLevelWin;
-    public UnityEvent onLevelLose;
-
     private void Start()
     {
         allBalls = new List<Ball>();
@@ -62,8 +59,8 @@ public class BallsManager : GenericSingleton<BallsManager>
 
         if (allBalls.Count == 0)
         {
-            onLevelWin?.Invoke();
-            onLevelWin.RemoveAllListeners();
+            LevelManager.instance.onLevelWin?.Invoke();
+            LevelManager.instance.onLevelWin.RemoveAllListeners();
         }
     }
 

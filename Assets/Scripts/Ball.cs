@@ -41,7 +41,10 @@ public class Ball : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            //Debug.Log("Player Hit!");
+            other.GetComponent<CharacterController>().Die();
+
+            LevelManager.instance.onLevelLose?.Invoke();
+            LevelManager.instance.onLevelLose.RemoveAllListeners();
         }
 
         if(other.tag == "Attack")

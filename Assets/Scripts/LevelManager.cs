@@ -1,0 +1,11 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class LevelManager : GenericSingleton<LevelManager>
+{
+    public UnityEvent onLevelWin;
+    public UnityEvent onLevelLose;
+
+}
