@@ -8,9 +8,6 @@ public class BallsManager : GenericSingleton<BallsManager>
     public List<Ball> allBalls;
     [SerializeField] GameObject ballPrefab;
 
-    public UnityEvent onLevelWin;
-    public UnityEvent onLevelLose;
-
     private void Start()
     {
         allBalls = new List<Ball>();
@@ -30,6 +27,11 @@ public class BallsManager : GenericSingleton<BallsManager>
         {
             UpdateBallMovement(ball);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ReduceBallSize(allBalls[0]);
+        }
     }
 
     //using a Sin function instead of physics bouncing, just like the original game. also, would be much more easing on the device.
@@ -46,6 +48,7 @@ public class BallsManager : GenericSingleton<BallsManager>
 
     public void ReduceBallSize(Ball ball)
     {
+        int newBallSize = ball.size-1;
         ball.size--;
         if (ball.size > 0)
         {
@@ -55,10 +58,9 @@ public class BallsManager : GenericSingleton<BallsManager>
         allBalls.Remove(ball);
         Destroy(ball.gameObject);
 
-        if (allBalls.Count == 0)
+        if (newBallSize < 1)
         {
-            onLevelWin?.Invoke();
-            onLevelWin.RemoveAllListeners();
+            LevelManager.instance.CheckForWin();
         }
     }
 

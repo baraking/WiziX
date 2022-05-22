@@ -28,6 +28,8 @@ public class Ball : MonoBehaviour
         {
             xDir = 1;
         }
+
+        transform.localScale = new Vector3((float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,7 +41,8 @@ public class Ball : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            //Debug.Log("Player Hit!");
+            other.GetComponent<CharacterController>().Die();
+            LevelManager.instance.CheckForLose();
         }
 
         if(other.tag == "Attack")

@@ -64,4 +64,15 @@ public class AttacksManager : MonoBehaviour
 
         activeAttacks.Add(newAttack.GetComponent<Attack>());
     }
+
+    public void DisableAllAttacks()
+    {
+        while (activeAttacks.Count > 0)
+        {
+            disabledAttacks.Add(activeAttacks[0]);
+            activeAttacks.Remove(activeAttacks[0]);
+        }
+
+        RemoveDisabledAttacks();
+    }
 }
