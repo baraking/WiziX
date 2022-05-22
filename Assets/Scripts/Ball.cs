@@ -52,7 +52,6 @@ public class Ball : MonoBehaviour
 
         if (other.tag == "Ground")
         {
-            Debug.Log("Ground!");
             if (needToAlterRoute)
             {
                 BallsManager.instance.AlterBallMovement(this);

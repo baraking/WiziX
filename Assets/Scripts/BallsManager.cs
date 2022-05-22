@@ -42,18 +42,25 @@ public class BallsManager : GenericSingleton<BallsManager>
     private void UpdateBallMovement(Ball ball)
     {
         Vector3 pos = ball.transform.position;
-        float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
-        ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
-
-        if (ball.needToAlterRoute)
+        if (!ball.needToAlterRoute)
         {
+            float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+            ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
+        }
+        else
+        {
+            //float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime - Mathf.PI / 4) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+
+            float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+            ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
+
             if (ball.lastDistance == 0)
             {
                 ball.lastDistance = CalculateDistanceFromBallToBottom(ball);
             }
             else
             {
-                if(ball.lastDistance> CalculateDistanceFromBallToBottom(ball))
+                if(ball.lastDistance > CalculateDistanceFromBallToBottom(ball))
                 {
                     AlterBallMovement(ball);
                 }
