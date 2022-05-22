@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : GenericSingleton<LevelManager>
 {
@@ -13,14 +14,18 @@ public class LevelManager : GenericSingleton<LevelManager>
     public int numberOfPlayers;
     public int numberOfActivePlayers;
 
-    //add list of players.
+    public GameObject player1;//may be needed in the future
+    public GameObject player2;
 
     private void Start()
     {
         numberOfPlayers = sessionData.numberOfPlayers;
         numberOfActivePlayers = sessionData.numberOfPlayers;
 
-        //instantiate player 2 if needed
+        if (numberOfPlayers == 2 && SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            player2.SetActive(true);
+        }
     }
 
     public void CheckForWin()

@@ -21,6 +21,7 @@ public class EndStateMenu : MonoBehaviour
 
     void OnWin()
     {
+        DisablePlayersUI();
         fadeImage.enabled = true;
         StartCoroutine(Fade(Color.clear, Color.black, 1));
         winUI.SetActive(true);
@@ -28,9 +29,23 @@ public class EndStateMenu : MonoBehaviour
 
     void OnLose()
     {
+        DisablePlayersUI();
         fadeImage.enabled = true;
         StartCoroutine(Fade(Color.clear, Color.black, 1));
         loseUI.SetActive(true);
+    }
+
+    private void DisablePlayersUI()
+    {
+        if (!ReferenceEquals(LevelManager.instance.player1, null) && LevelManager.instance.player1.gameObject.active)
+        {
+            LevelManager.instance.player1.GetComponentInChildren<Canvas>().enabled = false;
+        }
+
+        if (!ReferenceEquals(LevelManager.instance.player2, null) && LevelManager.instance.player2.gameObject.active)
+        {
+            LevelManager.instance.player2.GetComponentInChildren<Canvas>().enabled = false;
+        }
     }
 
     public void NextLevel()

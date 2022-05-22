@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5393055804837411724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2399097424785621151}
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f831304818a0f9b4ea3b9698f3075459, type: 2}
+  - {fileID: 2100000, guid: 080f9dad7dbfbc84695b77bbf6e0a703, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2399097424785621151}
   m_Layer: 0
-  m_Name: Player1
+  m_Name: Player2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,11 +310,41 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4892736444703512946}
+    - target: {fileID: 4795004025080066147, guid: 247d25ea937fbc84bbf61b3abf36c00c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795004025080066147, guid: 247d25ea937fbc84bbf61b3abf36c00c,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795004025080066147, guid: 247d25ea937fbc84bbf61b3abf36c00c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -150
+      objectReference: {fileID: 0}
     - target: {fileID: 4795004025080066148, guid: 247d25ea937fbc84bbf61b3abf36c00c,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4892736444703512946}
+    - target: {fileID: 7650927127615293363, guid: 247d25ea937fbc84bbf61b3abf36c00c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7650927127615293363, guid: 247d25ea937fbc84bbf61b3abf36c00c,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7650927127615293363, guid: 247d25ea937fbc84bbf61b3abf36c00c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -72
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 247d25ea937fbc84bbf61b3abf36c00c, type: 3}
 --- !u!224 &4659696786971798797 stripped
