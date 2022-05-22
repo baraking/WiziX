@@ -36,5 +36,15 @@ public class Ball : MonoBehaviour
         {
             xDir = -xDir;
         }
+
+        if (other.tag == "Player")
+        {
+            //Debug.Log("Player Hit!");
+        }
+
+        if(other.tag == "Attack")
+        {
+            BallsManager.instance.ReduceBallSize(this);
+        }
     }
 }

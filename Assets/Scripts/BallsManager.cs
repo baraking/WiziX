@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BallsManager : MonoBehaviour
+public class BallsManager : GenericSingleton<BallsManager>
 {
     public List<Ball> allBalls;
     [SerializeField] GameObject ballPrefab;
@@ -30,12 +30,6 @@ public class BallsManager : MonoBehaviour
         {
             UpdateBallMovement(ball);
         }
-
-        //as a tmp testing for now
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ReduceBallSize(allBalls[0]);
-        }
     }
 
     //using a Sin function instead of physics bouncing, just like the original game. also, would be much more easing on the device.
@@ -50,7 +44,7 @@ public class BallsManager : MonoBehaviour
         ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route + ball.route - Ball.DEFAULT_BALL_SIZE, pos.z);
     }
 
-    private void ReduceBallSize(Ball ball)
+    public void ReduceBallSize(Ball ball)
     {
         ball.size--;
         if (ball.size > 0)
@@ -70,6 +64,7 @@ public class BallsManager : MonoBehaviour
 
     private void AddBall(Ball originalBall, int xDir)
     {
+        //need to change the transform position to a little bit to the left and the right. if is out of the screen to put just before the border
         GameObject newBall = Instantiate(ballPrefab, originalBall.transform.position, Quaternion.identity, transform);
         newBall.transform.localScale = new Vector3((float)originalBall.size / Ball.DEFAULT_BALL_SIZE, (float)originalBall.size / Ball.DEFAULT_BALL_SIZE, (float)originalBall.size / Ball.DEFAULT_BALL_SIZE);
 
