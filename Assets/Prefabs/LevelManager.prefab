@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589fb62769e80a5449589f92a49c74f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 5690048804386349552, guid: f3613b33046ea554a8e776c1cf3e3c31,
+    type: 3}
   onLevelWin:
     m_PersistentCalls:
       m_Calls: []
@@ -52,3 +54,5 @@ MonoBehaviour:
   sessionData: {fileID: 11400000, guid: 3fa0fa1f43e1e8b4fa394ce826bf112d, type: 2}
   numberOfPlayers: 0
   numberOfActivePlayers: 0
+  player1: {fileID: 0}
+  player2: {fileID: 0}
