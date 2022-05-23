@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class BallsManager : GenericSingleton<BallsManager>
 {
+    public static readonly float COS_DELAY = Mathf.PI / 10;
+
     public List<Ball> allBalls;
     [SerializeField] GameObject ballPrefab;
 
@@ -42,22 +44,22 @@ public class BallsManager : GenericSingleton<BallsManager>
     private void UpdateBallMovement(Ball ball)
     {
         Vector3 pos = ball.transform.position;
-        float lastFrameDistance;
+        float lastFrameDistance, newPosY;
 
         if (!ball.needToAlterRouteDueToGround)
         {
             float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
-            lastFrameDistance = newY * ball.route * 2 - 0.1f - pos.y;
-            Debug.Log(lastFrameDistance);
-            ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
+            newPosY = newY * ball.route * 2 - 0.1f;
+            ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newPosY, pos.z);
         }
         else
         {
-            float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime - Mathf.PI / 10) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route))) / Mathf.Cos(Mathf.PI / 10);
-            lastFrameDistance = newY * ball.route * 2 - 0.1f - pos.y;
-            ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
+            float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime - COS_DELAY) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route))) / Mathf.Cos(COS_DELAY);
+            newPosY = newY * ball.route * 2 - 0.1f;
+            ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newPosY, pos.z);
         }
 
+        lastFrameDistance = newPosY - pos.y;
         DetectHittingTheGround(ball, Mathf.Abs(lastFrameDistance + ball.size / 2));
     }
 
@@ -80,7 +82,7 @@ public class BallsManager : GenericSingleton<BallsManager>
 
     public void ReduceBallSize(Ball ball)
     {
-        int newBallSize = ball.size-1;
+        int newBallSize = ball.size - 1;
         ball.size--;
         if (ball.size > 0)
         {
@@ -99,7 +101,7 @@ public class BallsManager : GenericSingleton<BallsManager>
     private void AddBall(Ball originalBall, int xDir)
     {
         //need to change the transform position to a little bit to the left and the right. if is out of the screen to put just before the border
-        GameObject newBall = Instantiate(ballPrefab, originalBall.transform.position, Quaternion.identity, transform);
+        GameObject newBall = Instantiate(ballPrefab, new Vector3(originalBall.transform.position.x + Ball.BALL_X_SPAWN_THERSHOLD * xDir, originalBall.transform.position.y, originalBall.transform.position.z), Quaternion.identity, transform);
         newBall.transform.localScale = new Vector3((float)originalBall.size / Ball.DEFAULT_BALL_SIZE, (float)originalBall.size / Ball.DEFAULT_BALL_SIZE, (float)originalBall.size / Ball.DEFAULT_BALL_SIZE);
 
         Ball ball = newBall.GetComponent<Ball>();
@@ -114,7 +116,7 @@ public class BallsManager : GenericSingleton<BallsManager>
     public void AlterBallMovement(Ball ball)
     {
         ball.needToAlterRouteDueToGround = false;
-        ball.creationTime -= Mathf.PI / 2;
+        ball.creationTime -= Mathf.PI / 2;//syncing the ground location between the existing cos and new cos(0)
         ball.route = ball.size;
         ball.lastDistance = 0;
     }

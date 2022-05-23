@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public static readonly int DEFAULT_BALL_SIZE=4;
+    public static readonly int DEFAULT_BALL_SIZE = 4;
+    public static readonly float BALL_X_SPAWN_THERSHOLD = .5f;
     public AudioClip portalBounceSFX;
 
     public int size;
