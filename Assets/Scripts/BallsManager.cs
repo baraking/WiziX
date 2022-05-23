@@ -42,19 +42,24 @@ public class BallsManager : GenericSingleton<BallsManager>
     private void UpdateBallMovement(Ball ball)
     {
         Vector3 pos = ball.transform.position;
-        if (!ball.needToAlterRoute)
+        if (!ball.needToAlterRouteDueToGround)
         {
             float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
             ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
         }
         else
         {
-            //float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime - Mathf.PI / 4) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
-
-            float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+            float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime - Mathf.PI / 4) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+            //float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
             ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
 
-            if (ball.lastDistance == 0)
+            if (!ball.noNeedToAlterRouteDueToHit)
+            {
+                ball.noNeedToAlterRouteDueToHit = true;
+                ball.transform.position += new Vector3(0, pos.y, 0);
+            }
+
+            if (ball.transform.position.y <= .25f && ball.lastDistance == 0)
             {
                 ball.lastDistance = CalculateDistanceFromBallToBottom(ball);
             }
@@ -106,13 +111,14 @@ public class BallsManager : GenericSingleton<BallsManager>
         ball.route = originalBall.route;
         ball.xDir = xDir;
         ball.yDir = 1;
-        ball.needToAlterRoute = true;
+        ball.needToAlterRouteDueToGround = true;
         allBalls.Add(ball);
     }
 
     public void AlterBallMovement(Ball ball)
     {
-        ball.needToAlterRoute = false;
+        ball.needToAlterRouteDueToGround = false;
+        ball.noNeedToAlterRouteDueToHit = false;
         ball.route = ball.size;
         ball.lastDistance = 0;
     }

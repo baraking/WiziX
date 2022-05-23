@@ -14,7 +14,8 @@ public class Ball : MonoBehaviour
     public float lastDistance;
     public float creationTime;
 
-    public bool needToAlterRoute;
+    public bool needToAlterRouteDueToGround;
+    public bool noNeedToAlterRouteDueToHit;
 
     private void Awake()
     {
@@ -52,7 +53,7 @@ public class Ball : MonoBehaviour
 
         if (other.tag == "Ground")
         {
-            if (needToAlterRoute)
+            if (needToAlterRouteDueToGround)
             {
                 BallsManager.instance.AlterBallMovement(this);
             }
