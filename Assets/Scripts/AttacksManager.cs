@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttacksManager : MonoBehaviour
 {
-    public static readonly int DEFAULT_ATTACK_HEIGHT_LIMIT = 7;
+    public static readonly int DEFAULT_ATTACK_HEIGHT_LIMIT = 11;
     public AudioClip spellCastingSFX;
 
     CharacterController characterController;
