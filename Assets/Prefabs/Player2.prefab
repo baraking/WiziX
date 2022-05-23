@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bccfb8244aabca40a426ceb80d8c015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spellCastingSFX: {fileID: 0}
   activeAttacks: []
   disabledAttacks: []
   attackPrefab: {fileID: 3217296257559439127, guid: 50082415629d2204c9ab2b9cbae60beb,
@@ -330,6 +331,26 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4892736444703512946}
+    - target: {fileID: 6363600432062587228, guid: 247d25ea937fbc84bbf61b3abf36c00c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 7650927127615293360, guid: 247d25ea937fbc84bbf61b3abf36c00c,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7650927127615293360, guid: 247d25ea937fbc84bbf61b3abf36c00c,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7650927127615293360, guid: 247d25ea937fbc84bbf61b3abf36c00c,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7650927127615293363, guid: 247d25ea937fbc84bbf61b3abf36c00c,
         type: 3}
       propertyPath: m_AnchorMax.x

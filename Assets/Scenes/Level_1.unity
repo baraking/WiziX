@@ -873,6 +873,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7945950960049468062, guid: cd126d12ddcf9f24780b3eb5f583da91,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd126d12ddcf9f24780b3eb5f583da91, type: 3}
 --- !u!1 &1622646212 stripped
@@ -1142,6 +1147,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945950960049468062, guid: febbffae3bd2a5d44a95df1b43fb4089,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -103
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: febbffae3bd2a5d44a95df1b43fb4089, type: 3}
