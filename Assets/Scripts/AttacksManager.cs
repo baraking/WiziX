@@ -5,6 +5,7 @@ using UnityEngine;
 public class AttacksManager : MonoBehaviour
 {
     public static readonly int DEFAULT_ATTACK_HEIGHT_LIMIT = 7;
+    public AudioClip spellCastingSFX;
 
     CharacterController characterController;
     InputManager inputManager;
@@ -13,7 +14,7 @@ public class AttacksManager : MonoBehaviour
     public List<Attack> disabledAttacks;
 
     public GameObject attackPrefab;
-    float attackSpeed = 3;
+    float attackSpeed = 5;
 
     private void Start()
     {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public static readonly int DEFAULT_BALL_SIZE=4;
+    public AudioClip portalBounceSFX;
 
     public int size;
     public int route;
@@ -16,6 +17,8 @@ public class Ball : MonoBehaviour
 
     public bool needToAlterRouteDueToGround;
     public bool noNeedToAlterRouteDueToHit;
+
+    AudioSource audioSource;
 
     private void Awake()
     {
@@ -42,6 +45,13 @@ public class Ball : MonoBehaviour
         transform.localScale = new Vector3((float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE);
 
         creationTime = Time.time;
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    public void PlayBounceSFX()
+    {
+        audioSource.clip = portalBounceSFX;
+        audioSource.Play();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,10 +59,12 @@ public class Ball : MonoBehaviour
         if (other.tag == "Wall")
         {
             xDir = -xDir;
+            PlayBounceSFX();
         }
 
         if (other.tag == "Ground")
         {
+            PlayBounceSFX();
             if (needToAlterRouteDueToGround)
             {
                 BallsManager.instance.AlterBallMovement(this);
@@ -67,6 +79,7 @@ public class Ball : MonoBehaviour
 
         if(other.tag == "Attack")
         {
+            other.GetComponent<Attack>().PlayHitBySpellSFX();
             BallsManager.instance.ReduceBallSize(this);
         }
     }
