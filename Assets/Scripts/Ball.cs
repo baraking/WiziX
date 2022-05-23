@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public static readonly int DEFAULT_BALL_SIZE=4;
+    public static readonly int DEFAULT_BALL_SIZE = 4;
+    public static readonly float BALL_X_SPAWN_THERSHOLD = .5f;
     public AudioClip portalBounceSFX;
 
     public int size;
@@ -16,7 +17,6 @@ public class Ball : MonoBehaviour
     public float creationTime;
 
     public bool needToAlterRouteDueToGround;
-    public bool noNeedToAlterRouteDueToHit;
 
     AudioSource audioSource;
 
@@ -60,15 +60,6 @@ public class Ball : MonoBehaviour
         {
             xDir = -xDir;
             PlayBounceSFX();
-        }
-
-        if (other.tag == "Ground")
-        {
-            PlayBounceSFX();
-            if (needToAlterRouteDueToGround)
-            {
-                BallsManager.instance.AlterBallMovement(this);
-            }
         }
 
         if (other.tag == "Player")

@@ -51,6 +51,11 @@ public class EndStateMenu : MonoBehaviour
 
     private void DisablePlayersUI()
     {
+        if (LevelManager.instance.numberOfActivePlayers < 1)
+        {
+            return;
+        }
+
         if (!ReferenceEquals(LevelManager.instance.player1, null) && LevelManager.instance.player1.gameObject.active)
         {
             LevelManager.instance.player1.GetComponentInChildren<Canvas>().enabled = false;
