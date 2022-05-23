@@ -53,21 +53,9 @@ public class BallsManager : GenericSingleton<BallsManager>
         }
         else
         {
-            float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime - Mathf.PI / 4) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+            float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime - Mathf.PI / 10) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route))) / Mathf.Cos(Mathf.PI / 10);
             lastFrameDistance = newY * ball.route * 2 - 0.1f - pos.y;
             ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
-
-            if (ball.transform.position.y <= .25f && ball.lastDistance == 0)
-            {
-                ball.lastDistance = CalculateDistanceFromBallToBottom(ball);
-            }
-            else
-            {
-                if(ball.lastDistance > CalculateDistanceFromBallToBottom(ball))
-                {
-                    AlterBallMovement(ball);
-                }
-            }
         }
 
         DetectHittingTheGround(ball, Mathf.Abs(lastFrameDistance + ball.size / 2));
@@ -126,6 +114,7 @@ public class BallsManager : GenericSingleton<BallsManager>
     public void AlterBallMovement(Ball ball)
     {
         ball.needToAlterRouteDueToGround = false;
+        ball.creationTime -= Mathf.PI / 2;
         ball.route = ball.size;
         ball.lastDistance = 0;
     }
