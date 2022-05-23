@@ -17,14 +17,26 @@ public class AudioManager : GenericSingleton<AudioManager>
         PlayMenuTheme();
     }
 
+    public void VolumeDown()
+    {
+        myAudioSource.volume = .25f;
+    }
+
+    public void RestoreVolume()
+    {
+        myAudioSource.volume = .5f;
+    }
+
     public void PlayMenuTheme()
     {
+        RestoreVolume();
         myAudioSource.clip = mainMenuTheme;
         myAudioSource.Play();
     }
 
     public void PlayLevelTheme()
     {
+        RestoreVolume();
         myAudioSource.clip = levelTheme;
         myAudioSource.Play();
     }

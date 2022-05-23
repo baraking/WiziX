@@ -11,12 +11,18 @@ public class EndStateMenu : MonoBehaviour
 
     public Image fadeImage;
 
+    [SerializeField] AudioSource myAudioSource;
+    [SerializeField] AudioClip levelWinSFX;
+    [SerializeField] AudioClip levelLoseSFX;
+
     private void Start()
     {
         fadeImage.enabled = false;
 
         LevelManager.instance.onLevelWin.AddListener(OnWin);
         LevelManager.instance.onLevelLose.AddListener(OnLose);
+
+        myAudioSource = GetComponent<AudioSource>();
     }
 
     void OnWin()
@@ -25,6 +31,10 @@ public class EndStateMenu : MonoBehaviour
         fadeImage.enabled = true;
         StartCoroutine(Fade(Color.clear, Color.black, 1));
         winUI.SetActive(true);
+
+        AudioManager.instance.VolumeDown();
+        myAudioSource.clip = levelWinSFX;
+        myAudioSource.Play();
     }
 
     void OnLose()
@@ -33,6 +43,10 @@ public class EndStateMenu : MonoBehaviour
         fadeImage.enabled = true;
         StartCoroutine(Fade(Color.clear, Color.black, 1));
         loseUI.SetActive(true);
+
+        AudioManager.instance.VolumeDown();
+        myAudioSource.clip = levelLoseSFX;
+        myAudioSource.Play();
     }
 
     private void DisablePlayersUI()
