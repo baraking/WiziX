@@ -8,6 +8,8 @@ public class BallsManager : GenericSingleton<BallsManager>
     public List<Ball> allBalls;
     [SerializeField] GameObject ballPrefab;
 
+    Collider bottomCollider;
+
     private void Start()
     {
         allBalls = new List<Ball>();
@@ -18,6 +20,8 @@ public class BallsManager : GenericSingleton<BallsManager>
                 allBalls.Add(child.GetComponent<Ball>());
             }
         }
+
+        bottomCollider = Bounderies.instance.bottomBoundery.GetComponent<Collider>();
     }
 
     //runs the balls update function from here instead of using multiple update functions
@@ -34,16 +38,48 @@ public class BallsManager : GenericSingleton<BallsManager>
         }
     }
 
-    //using a Sin function instead of physics bouncing, just like the original game. also, would be much more easing on the device.
+    //using a Cos function instead of physics bouncing, just like the original game. also, would be much more easing on the device.
     private void UpdateBallMovement(Ball ball)
     {
         Vector3 pos = ball.transform.position;
-        float newY = Mathf.Sin(Time.time * (Ball.DEFAULT_BALL_SIZE-1 + (float)1 / ball.route));
-        if (ball.needToAlterRoute && newY < -0.97f)
+        if (!ball.needToAlterRouteDueToGround)
         {
-            AlterBallMovement(ball);
+            float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+            ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
         }
-        ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route + ball.route - Ball.DEFAULT_BALL_SIZE, pos.z);
+        else
+        {
+            float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime - Mathf.PI / 4) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+            //float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+            ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
+
+            if (!ball.noNeedToAlterRouteDueToHit)
+            {
+                ball.noNeedToAlterRouteDueToHit = true;
+                ball.transform.position += new Vector3(0, pos.y, 0);
+            }
+
+            if (ball.transform.position.y <= .25f && ball.lastDistance == 0)
+            {
+                ball.lastDistance = CalculateDistanceFromBallToBottom(ball);
+            }
+            else
+            {
+                if(ball.lastDistance > CalculateDistanceFromBallToBottom(ball))
+                {
+                    AlterBallMovement(ball);
+                }
+            }
+        }
+    }
+
+    //should be replaced (probably) with raycasting in a future version.
+    private float CalculateDistanceFromBallToBottom(Ball ball)
+    {
+        Collider ballCollider = ball.GetComponent<Collider>();
+        Vector3 bottomPoint = bottomCollider.ClosestPointOnBounds(ball.transform.position);
+        Vector3 ballPoint = ballCollider.ClosestPoint(bottomPoint);
+        return Vector3.Distance(ballPoint, bottomPoint);
     }
 
     public void ReduceBallSize(Ball ball)
@@ -74,13 +110,16 @@ public class BallsManager : GenericSingleton<BallsManager>
         ball.size = originalBall.size;
         ball.route = originalBall.route;
         ball.xDir = xDir;
-        ball.needToAlterRoute = true;
+        ball.yDir = 1;
+        ball.needToAlterRouteDueToGround = true;
         allBalls.Add(ball);
     }
 
-    private void AlterBallMovement(Ball ball)
+    public void AlterBallMovement(Ball ball)
     {
-        ball.needToAlterRoute = false;
+        ball.needToAlterRouteDueToGround = false;
+        ball.noNeedToAlterRouteDueToHit = false;
         ball.route = ball.size;
+        ball.lastDistance = 0;
     }
 }

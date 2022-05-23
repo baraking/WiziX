@@ -9,8 +9,13 @@ public class Ball : MonoBehaviour
     public int size;
     public int route;
     public int xDir;
+    public int yDir;
 
-    public bool needToAlterRoute;
+    public float lastDistance;
+    public float creationTime;
+
+    public bool needToAlterRouteDueToGround;
+    public bool noNeedToAlterRouteDueToHit;
 
     private void Awake()
     {
@@ -29,7 +34,14 @@ public class Ball : MonoBehaviour
             xDir = 1;
         }
 
+        if (yDir == 0)
+        {
+            yDir = 1;
+        }
+
         transform.localScale = new Vector3((float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE, (float)size / DEFAULT_BALL_SIZE);
+
+        creationTime = Time.time;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,6 +49,14 @@ public class Ball : MonoBehaviour
         if (other.tag == "Wall")
         {
             xDir = -xDir;
+        }
+
+        if (other.tag == "Ground")
+        {
+            if (needToAlterRouteDueToGround)
+            {
+                BallsManager.instance.AlterBallMovement(this);
+            }
         }
 
         if (other.tag == "Player")
