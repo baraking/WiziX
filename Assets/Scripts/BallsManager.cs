@@ -42,22 +42,20 @@ public class BallsManager : GenericSingleton<BallsManager>
     private void UpdateBallMovement(Ball ball)
     {
         Vector3 pos = ball.transform.position;
+        float lastFrameDistance;
+
         if (!ball.needToAlterRouteDueToGround)
         {
             float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+            lastFrameDistance = newY * ball.route * 2 - 0.1f - pos.y;
+            Debug.Log(lastFrameDistance);
             ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
         }
         else
         {
             float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime - Mathf.PI / 4) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
-            //float newY = Mathf.Abs(Mathf.Cos((Time.time - ball.creationTime) * (Ball.DEFAULT_BALL_SIZE - 1 + (float)1 / ball.route)));
+            lastFrameDistance = newY * ball.route * 2 - 0.1f - pos.y;
             ball.transform.position = new Vector3(pos.x + ball.xDir * (ball.route + 1) * Time.deltaTime, newY * ball.route * 2 - 0.1f, pos.z);
-
-            if (!ball.noNeedToAlterRouteDueToHit)
-            {
-                ball.noNeedToAlterRouteDueToHit = true;
-                ball.transform.position += new Vector3(0, pos.y, 0);
-            }
 
             if (ball.transform.position.y <= .25f && ball.lastDistance == 0)
             {
@@ -71,15 +69,25 @@ public class BallsManager : GenericSingleton<BallsManager>
                 }
             }
         }
+
+        DetectHittingTheGround(ball, Mathf.Abs(lastFrameDistance + ball.size / 2));
     }
 
-    //should be replaced (probably) with raycasting in a future version.
-    private float CalculateDistanceFromBallToBottom(Ball ball)
+    private void DetectHittingTheGround(Ball ball, float lastFrameDistance)
     {
-        Collider ballCollider = ball.GetComponent<Collider>();
-        Vector3 bottomPoint = bottomCollider.ClosestPointOnBounds(ball.transform.position);
-        Vector3 ballPoint = ballCollider.ClosestPoint(bottomPoint);
-        return Vector3.Distance(ballPoint, bottomPoint);
+        Ray groundDetectionRay = new Ray(ball.transform.position, transform.TransformDirection(Vector3.down * lastFrameDistance));
+        Debug.DrawRay(ball.transform.position, transform.TransformDirection(Vector3.down * lastFrameDistance));
+        if(Physics.Raycast(groundDetectionRay,out RaycastHit hit, lastFrameDistance))
+        {
+            if (hit.collider.tag == "Ground")
+            {
+                ball.PlayBounceSFX();
+                if (ball.needToAlterRouteDueToGround)
+                {
+                    AlterBallMovement(ball);
+                }
+            }
+        }
     }
 
     public void ReduceBallSize(Ball ball)
@@ -118,7 +126,6 @@ public class BallsManager : GenericSingleton<BallsManager>
     public void AlterBallMovement(Ball ball)
     {
         ball.needToAlterRouteDueToGround = false;
-        ball.noNeedToAlterRouteDueToHit = false;
         ball.route = ball.size;
         ball.lastDistance = 0;
     }

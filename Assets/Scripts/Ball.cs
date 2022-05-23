@@ -16,7 +16,6 @@ public class Ball : MonoBehaviour
     public float creationTime;
 
     public bool needToAlterRouteDueToGround;
-    public bool noNeedToAlterRouteDueToHit;
 
     AudioSource audioSource;
 
@@ -60,15 +59,6 @@ public class Ball : MonoBehaviour
         {
             xDir = -xDir;
             PlayBounceSFX();
-        }
-
-        if (other.tag == "Ground")
-        {
-            PlayBounceSFX();
-            if (needToAlterRouteDueToGround)
-            {
-                BallsManager.instance.AlterBallMovement(this);
-            }
         }
 
         if (other.tag == "Player")
