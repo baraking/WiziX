@@ -50,11 +50,20 @@ public class EndStateMenu : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Debug.Log("Scenes count: " + SceneManager.sceneCountInBuildSettings);
+        if(SceneManager.GetActiveScene().buildIndex + 1 >= SceneManager.sceneCountInBuildSettings)
+        {
+            ReturnToMainMenu();
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     public void ReturnToMainMenu()
     {
+        AudioManager.instance.PlayMenuTheme();
         SceneManager.LoadScene(0);
     }
 

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : GenericSingleton<LevelManager>
 {
+    [SerializeField] GameObject audioManager;
+
     public UnityEvent onLevelWin;
     public UnityEvent onLevelLose;
 
@@ -19,6 +21,11 @@ public class LevelManager : GenericSingleton<LevelManager>
 
     private void Start()
     {
+        if (ReferenceEquals(AudioManager.instance, null))
+        {
+            Instantiate(audioManager);
+        }
+
         numberOfPlayers = sessionData.numberOfPlayers;
         numberOfActivePlayers = sessionData.numberOfPlayers;
 

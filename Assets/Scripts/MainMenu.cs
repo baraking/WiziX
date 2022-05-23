@@ -9,12 +9,14 @@ public class MainMenu : MonoBehaviour
     public void OnePlayerOption()
     {
         LevelManager.instance.sessionData.numberOfPlayers = 1;
+        AudioManager.instance.PlayLevelTheme();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void TwoPlayeresOption()
     {
         LevelManager.instance.sessionData.numberOfPlayers = 2;
+        AudioManager.instance.PlayLevelTheme();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
